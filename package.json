@@ -1,15 +1,15 @@
 {
   "name": "homey-zigbeedriver",
-  "version": "1.1.0",
+  "version": "2.2.17",
   "description": "This module can be used to make the development of Zigbee apps for Homey easier.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "node --test",
     "lint": "eslint .",
-    "serve": "concurrently \"serve build/docs/\" \"npm run jsdoc:watch\"",
-    "build": "npm run jsdoc",
-    "jsdoc": "cd docs; jsdoc -c jsdoc.json",
-    "jsdoc:watch": "npm-watch jsdoc"
+    "serve": "concurrently \"serve build/\" \"npm run build:watch\"",
+    "build": "jsdoc --configure ./docs/jsdoc.json",
+    "build:clean": "rm -rf ./build",
+    "build:watch": "watch \"npm run build:clean && npm run build\" lib docs \"node_modules/@athombv/jsdoc-template\""
   },
   "keywords": [
     "zigbee",
@@ -19,22 +19,25 @@
   "license": "ISC",
   "dependencies": {
     "color-space": "^1.16.0",
-    "tinygradient": "^1.1.1",
-    "zigbee-clusters": "^1.2.0"
+    "tinygradient": "^1.1.1"
+  },
+  "peerDependencies": {
+    "zigbee-clusters": "^2.1.2 || ^3.0.2"
   },
   "devDependencies": {
-    "braintree-jsdoc-template": "^3.3.0",
+    "@athombv/jsdoc-template": "^1.7.0",
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.0",
     "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-athom": "^2.0.8",
-    "jsdoc": "^3.6.4",
-    "npm-watch": "^0.6.0",
-    "serve": "^11.3.1",
-    "homey": "^2.1.5",
-    "mocha": "^7.1.1"
+    "jsdoc": "^3.6.6",
+    "jsdoc-ts-utils": "^1.1.2",
+    "serve": "^14.2.0",
+    "watch": "^1.0.2",
+    "zigbee-clusters": "^2.1.2 || ^3.0.2"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=22"
   },
   "directories": {
     "doc": "docs",
@@ -49,15 +52,5 @@
   "bugs": {
     "url": "https://github.com/athombv/node-homey-zigbeedriver/issues"
   },
-  "homepage": "https://github.com/athombv/node-homey-zigbeedriver#readme",
-  "watch": {
-    "jsdoc": {
-      "patterns": [
-        "lib"
-      ],
-      "extensions": [
-        "js"
-      ]
-    }
-  }
+  "homepage": "https://github.com/athombv/node-homey-zigbeedriver#readme"
 }
